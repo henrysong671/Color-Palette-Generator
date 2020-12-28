@@ -8,6 +8,10 @@
 *.so
 *.xml
 *.iml
+/venv
+/.idea
+tkinterTest.py
+/.vscode
 
 # Packages #
 ############
