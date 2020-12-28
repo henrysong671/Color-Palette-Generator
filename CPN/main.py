@@ -6,14 +6,22 @@ from PIL import Image, ImageTk
 import colorgram
 import os, sys
 
+#Global Vars
+directory = ""
+
 #Methods
 
+# locateImg() method:
+# locates image and returns image location
+def locateImg():
+    imgFinder = filedialog.askopenfilename(title="Select Image File", filetypes=[('Image File', ("*.jpg", "*.png"))])  # initialdir = os.get pwd? ) # fixed filetypes
+    if imgFinder is not None:
+        global directory
+        directory = os.path.split(imgFinder)[0] + "/" + os.path.split(imgFinder)[1]
+        # print(directory)
+        # img = Image.open(imgFinder)
+        # img = ImageTk.PhotoImage(img)
 
-#Methods
-# def locateImg():
-#     imgFinder = filedialog.askopenfilename(title="select Image File", fileTypes=(('JPG file', "*.jpg"), ("PNG file", '.*.png')))  # initialdir = os.get pwd? )
-#     img = Image.open(imgFinder)
-#     img = ImageTk.PhotoImage(img)
 
 # extractedColors = colorgram.extract('test.png', 20)
 # colorList = []  # can uncomment and mess around with it.
@@ -66,7 +74,7 @@ generator = t.RawTurtle(canvas)
 #ImgLocator
 style = ttk.Style()
 style.configure('TButton', padding=6, relief="flat", foreground="black", font='georgia 13 bold')
-imageLocation = ttk.Button(root, text="Import Image", style='TButton')
+imageLocation = ttk.Button(root, text="Import Image", style='TButton', command = locateImg)
 savePalette = ttk.Button(root, text="Save Palette")
 imageLocation.grid(row=1, column=1)
 savePalette.grid(row=1, column=2)
@@ -95,16 +103,17 @@ numOfColors = len(colorList)
 generator.forward(375)
 generator.setheading(0)
 
-for dot in range(1, numOfColors):
-    color = colorList[dot - 1]
-    generator.dot(50, color)
-    generator.forward(50)
-    if dot % 10 == 0:
-        generator.setheading(270)
-        generator.forward(50)
-        generator.setheading(180)
-        generator.forward(500)
-        generator.setheading(0)
+# for dot in range(1, numOfColors):
+#     color = colorList[dot - 1]
+#     generator.dot(50, color)
+#     generator.forward(50)
+#     if dot % 10 == 0:
+#         generator.setheading(270)
+#         generator.forward(50)
+#         generator.setheading(180)
+#         generator.forward(500)
+#         generator.setheading(0)
 
 
 root.mainloop()
+print(directory) #test to verify correct image location
